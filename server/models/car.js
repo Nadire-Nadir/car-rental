@@ -38,7 +38,7 @@ const carSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ["small", "medium", "large", "estate", "premium", "minivans", "SUVs"],
+    enum: ["Small", "Medium", "Large", "Estate", "Premium", "Minivans", "SUVs"],
   },
   power: {
     type: String,
