@@ -30,7 +30,7 @@ const carSchema = new mongoose.Schema({
   },
   transmission: {
     type: String,
-    emum: ["automatic", "manual"],
+    emum: ["Automatic", "Manual"],
   },
   PricePerDay: {
     type: Number,

@@ -2,15 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import locationService from "../services/locations";
-import carService from "../services/cars";
 import LocationsList from "./locationsList";
-import { useCars } from "../contexts/carsContext";
 
 import { BiSearch } from "react-icons/bi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-const CarSearchForm = ({ setShowForm, showForm }) => {
-  const { setCarsData } = useCars();
+const CarSearchForm = ({ setShowForm, setUpdate, update }) => {
   const today = new Date().toISOString().split("T")[0];
   const tomorrowDate = new Date();
   tomorrowDate.setDate(tomorrowDate.getDate() + 1);
@@ -98,56 +95,34 @@ const CarSearchForm = ({ setShowForm, showForm }) => {
     }));
   };
 
-  const combineDateTime = (dateValue, timeValue) => {
-    const [hours, minutes] = timeValue.split(":");
-    const [year, month, day] = dateValue.split("-");
-
-    const dateTime = new Date(Date.UTC(year, month - 1, day, hours, minutes));
-    return dateTime.toISOString();
-  };
-
-  const fetchCars = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const startDateTime = combineDateTime(
-      dateData.pickupDate,
-      dateData.pickupTime
-    );
-    const endDateTime = combineDateTime(
-      dateData.dropoffDate,
-      dateData.dropoffTime
-    );
 
     const newSearchData = JSON.stringify({
       pickupLocation: pickupLocationInput,
-      dropoffLocation: pickupLocationInput,
-      startDate: startDateTime,
-      endDate: endDateTime,
       pickupLocationId: pickupLocationId,
+      dropoffLocation: pickupLocationInput,
+      dropoffLocationId: dropoffLocationId,
+      startDate: dateData.pickupDate,
+      startTime: dateData.pickupTime,
+      endDate: dateData.dropoffDate,
+      endTime: dateData.dropoffTime,
     });
 
-    try {
-      const response = await carService.getCars({
-        params: {
-          locationId: pickupLocationId,
-          startDate: startDateTime,
-          endDate: endDateTime,
-          page: 1,
-          limit: 20,
-        },
-      });
+    navigate("/carlist");
+    localStorage.setItem("searchSummary", newSearchData);
 
-      setCarsData(response);
-      navigate("/carlist");
-      localStorage.setItem("searchSummary", newSearchData);
-      setShowForm(!showForm);
-    } catch (error) {
-      console.log("error", error);
+    if (setShowForm) {
+      setShowForm(false);
+    }
+
+    if (setUpdate) {
+      setUpdate(!update);
     }
   };
 
   return (
-    <form onSubmit={fetchCars} className="flex flex-col m-6 space-y-2">
+    <form onSubmit={handleSubmit} className="flex flex-col m-6 space-y-2">
       <label className="font-bold text-lg">Pick-Up Location</label>
       <div className="relative">
         <input

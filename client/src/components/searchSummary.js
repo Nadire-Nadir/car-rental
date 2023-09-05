@@ -3,11 +3,11 @@ import { IoIosArrowForward } from "react-icons/io";
 import CarSearchForm from "./carSearchForm";
 import { GrClose } from "react-icons/gr";
 
-const SearchSummary = () => {
+const SearchSummary = ({ setUpdateSearch, updateSearch }) => {
   const [showForm, setShowForm] = useState(false);
   const searchSummary = JSON.parse(localStorage.getItem("searchSummary"));
 
-  const formatDate = (newDate) => {
+  const formatDate = (newDate, time) => {
     const weekdays = [
       "Sunday",
       "Monday",
@@ -41,14 +41,7 @@ const SearchSummary = () => {
     // const month = date.getMonth() + 1; // Add 1 since months are zero-based
     const day = date.getDate();
 
-    const hours = date.getUTCHours();
-    const minutes = date.getUTCMinutes();
-
-    const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes
-      .toString()
-      .padStart(2, "0")}`;
-
-    return `${dayOfWeek}, ${monthName} ${day}, ${year}, ${formattedTime}`;
+    return `${dayOfWeek}, ${monthName} ${day}, ${year}, ${time}`;
   };
 
   return (
@@ -64,21 +57,30 @@ const SearchSummary = () => {
               <GrClose className="w-4 h-4" />
             </button>
           </div>
-          <CarSearchForm setShowForm={setShowForm} showForm={showForm} />
+          <CarSearchForm
+            setShowForm={setShowForm}
+            showForm={showForm}
+            setUpdate={setUpdateSearch}
+            update={updateSearch}
+          />
         </div>
       ) : (
         <div className="px-4 flex justify-between items-center">
           <div className="flex flex-row items-center space-x-4">
             <div className="leading-3">
               <p className="font-bold">{searchSummary.pickupLocation}</p>
-              <p className="text-sm">{formatDate(searchSummary.startDate)}</p>
+              <p className="text-sm">
+                {formatDate(searchSummary.startDate, searchSummary.startTime)}
+              </p>
             </div>
             <div>
               <IoIosArrowForward className="h-5 w-5" />
             </div>
             <div className="leading-3">
               <p className="font-bold">{searchSummary.dropoffLocation} </p>
-              <p className="text-sm">{formatDate(searchSummary.endDate)}</p>
+              <p className="text-sm">
+                {formatDate(searchSummary.endDate, searchSummary.endTime)}
+              </p>
             </div>
           </div>
           <button

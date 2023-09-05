@@ -5,7 +5,17 @@ const carsRouter = require("express").Router();
 
 carsRouter.get("/", async (request, response) => {
   try {
-    const { startDate, endDate, locationId, page, limit } = request.query;
+    const {
+      startDate,
+      endDate,
+      locationId,
+      page,
+      limit,
+      category,
+      price,
+      transmission,
+      power,
+    } = request.query;
 
     if (!startDate || !endDate || !locationId) {
       return response.status(400).json({
@@ -34,7 +44,40 @@ carsRouter.get("/", async (request, response) => {
       overlappingBookings.map((booking) => booking.car.toString())
     );
 
-    const cars = await Car.find({ location: locationId });
+    const filter = {
+      location: locationId,
+    };
+
+    if (category) {
+      filter.category = { $in: category };
+    }
+
+    if (price) {
+      const priceConditions = price.map((range) => {
+        if (range.min && range.max) {
+          return {
+            PricePerDay: { $gte: range.min, $lte: range.max },
+          };
+        } else if (range.min) {
+          return {
+            PricePerDay: { $gte: range.min },
+          };
+        }
+        return {};
+      });
+
+      filter.$or = priceConditions;
+    }
+
+    if (transmission) {
+      filter.transmission = { $in: transmission };
+    }
+
+    if (power) {
+      filter.power = { $in: power };
+    }
+
+    const cars = await Car.find(filter);
 
     const availableCars = cars.filter(
       (car) => !overlappingCarIds.has(car._id.toString())
@@ -42,6 +85,7 @@ carsRouter.get("/", async (request, response) => {
 
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
+
     const paginatedCars = availableCars.slice(startIndex, endIndex);
 
     response.json({

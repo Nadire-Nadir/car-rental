@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { GoPerson } from "react-icons/go";
 import { GiGearStickPattern } from "react-icons/gi";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -16,6 +17,13 @@ const CarDetail = ({ car }) => {
   const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
   const randomIndex = Math.ceil(Math.random() * 9);
+
+  const navigate = useNavigate();
+
+  const handleClick = (car) => {
+    navigate("/deal");
+    localStorage.setItem("dealData", JSON.stringify(car));
+  };
 
   return (
     <div
@@ -87,6 +95,7 @@ const CarDetail = ({ car }) => {
       <div className="relative">
         <button
           type="button"
+          onClick={() => handleClick(car)}
           className="absolute border-none bg-blue text-white text-base h-10 w-36 right-0 rounded-md cursor-pointer"
         >
           View deal
