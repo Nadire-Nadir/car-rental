@@ -131,7 +131,7 @@ const Filter = ({
                     €{option.min} - €{option.max}
                   </span>
                 ) : (
-                  <span>€{option.min} +</span>
+                  <span>€{option.min}+</span>
                 )}
               </label>
             </div>

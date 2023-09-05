@@ -16,22 +16,22 @@ const Features = () => {
     <div className="bg-light-background">
       <div className="flex items-center max-w-6xl mx-auto py-16">
         {featureItem(
-          <RiDashboard3Fill color="#BB191B" className="w-10 h-10" />,
+          <RiDashboard3Fill color="#f56700" className="w-10 h-10" />,
           "No Milleage Restrictions",
           "New cars with no hidden restrictions"
         )}
         {featureItem(
-          <RiWallet3Fill color="#BB191B" className="w-10 h-10" />,
+          <RiWallet3Fill color="#f56700" className="w-10 h-10" />,
           "No Extra Costs",
           "Rent a car with a peaceful mind"
         )}
         {featureItem(
-          <LiaMoneyBillWaveSolid color="#BB191B" className="w-10 h-10" />,
+          <LiaMoneyBillWaveSolid color="#f56700" className="w-10 h-10" />,
           "Affordable Prices",
           "Perfect deals for every budget"
         )}
         {featureItem(
-          <BsShieldFillCheck color="#BB191B" className="w-10 h-10" />,
+          <BsShieldFillCheck color="#f56700" className="w-10 h-10" />,
           "Trustworthy Service",
           "With over 10 years of experience"
         )}

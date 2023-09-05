@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import locationService from "../services/locations";
 import LocationsList from "./locationsList";
 
 import { BiSearch } from "react-icons/bi";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const CarSearchForm = ({ setShowForm, setUpdate, update }) => {
   const today = new Date().toISOString().split("T")[0];
@@ -32,12 +30,12 @@ const CarSearchForm = ({ setShowForm, setUpdate, update }) => {
   const [dropoffLocationInput, setDropoffLocationInput] = useState(
     searchSummary ? searchSummary.dropoffLocation : ""
   );
-  const [locations, setLocations] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [pickupLocationId, setPickupLocationId] = useState(
     searchSummary ? searchSummary.pickupLocationId : undefined
   );
-  const [dropoffLocationId, setDropoffLocationId] = useState(undefined);
+  const [dropoffLocationId, setDropoffLocationId] = useState(
+    searchSummary ? searchSummary.dropoffLocationId : undefined
+  );
   const [dropoffChecked, setDropoffChecked] = useState(false);
   const [dateData, setDateData] = useState({
     pickupDate: tomorrow,
@@ -45,7 +43,10 @@ const CarSearchForm = ({ setShowForm, setUpdate, update }) => {
     pickupTime: "10:00",
     dropoffTime: "10:00",
   });
-  const [locationSelected, setLocationSelected] = useState(
+  const [pLocationSelected, setPLocationSelected] = useState(
+    searchSummary ? true : false
+  );
+  const [dLocationSelected, setDLocationSelected] = useState(
     searchSummary ? true : false
   );
 
@@ -56,35 +57,23 @@ const CarSearchForm = ({ setShowForm, setUpdate, update }) => {
 
     if (name === "pickup-location") {
       setPickupLocationInput(value);
-      setLocationSelected(false);
+      setPLocationSelected(false);
     } else {
       setDropoffLocationInput(value);
+      setDLocationSelected(false);
     }
   };
 
-  useEffect(() => {
-    if (pickupLocationInput.length > 2 && !locationSelected) {
-      setLoading(true);
-      locationService
-        .getLocations({ params: { query: pickupLocationInput } })
-        .then((response) => {
-          setLocations(response);
-          setLoading(false);
-        })
-        .catch((error) => {
-          setLoading(false);
-          console.log("fetch locations error", error);
-        });
-    } else {
-      setLocations([]);
-    }
-  }, [pickupLocationInput, locationSelected]);
-
-  const handleLocationSelect = (location) => {
+  const pickupLocationSelect = (location) => {
     setPickupLocationId(location.id);
     setPickupLocationInput(location.name);
-    setLocationSelected(true);
-    setLocations([]);
+    setPLocationSelected(true);
+  };
+
+  const dropoffLocationSelect = (location) => {
+    setDropoffLocationId(location.id);
+    setDropoffLocationInput(location.name);
+    setDLocationSelected(true);
   };
 
   const handleDateChange = (event) => {
@@ -101,8 +90,10 @@ const CarSearchForm = ({ setShowForm, setUpdate, update }) => {
     const newSearchData = JSON.stringify({
       pickupLocation: pickupLocationInput,
       pickupLocationId: pickupLocationId,
-      dropoffLocation: pickupLocationInput,
-      dropoffLocationId: dropoffLocationId,
+      dropoffLocation: dropoffChecked
+        ? dropoffLocationInput
+        : pickupLocationInput,
+      dropoffLocationId: dropoffChecked ? dropoffLocationId : pickupLocationId,
       startDate: dateData.pickupDate,
       startTime: dateData.pickupTime,
       endDate: dateData.dropoffDate,
@@ -128,23 +119,21 @@ const CarSearchForm = ({ setShowForm, setUpdate, update }) => {
         <input
           name="pickup-location"
           type="text"
+          required
           value={pickupLocationInput}
           placeholder="Type a region, city or airport "
           onChange={handleLocationChange}
           className="border border-gray-500 box-border h-12 w-full pl-8 shadow-inner rounded-md focus:outline-none"
         />
         <BiSearch className="absolute left-2 h-5 w-5 top-4" />
-        {loading && (
-          <AiOutlineLoading3Quarters className="absolute h-5 w-5 right-2 top-4" />
-        )}
-        {locations.length !== 0 && (
-          <div className="absolute shadow-custom w-full mt-1 rounded-md bg-white z-20 ">
-            <LocationsList
-              locations={locations}
-              onClick={handleLocationSelect}
-            />
-          </div>
-        )}
+        <div className="absolute shadow-custom w-full mt-1 rounded-md bg-white z-20 ">
+          <LocationsList
+            input={pickupLocationInput}
+            onClick={pickupLocationSelect}
+            setSelected={setPLocationSelected}
+            selected={pLocationSelected}
+          />
+        </div>
       </div>
       {dropoffChecked && (
         <>
@@ -161,9 +150,14 @@ const CarSearchForm = ({ setShowForm, setUpdate, update }) => {
               className="border border-gray-500 box-border pl-8 h-12 w-full shadow-inner rounded-md focus:outline-none"
             />
             <BiSearch className="absolute left-2 top-4 h-5 w-5" />
-            {loading && (
-              <AiOutlineLoading3Quarters className="absolute h-5 w-5 right-2 top-4" />
-            )}
+            <div className="absolute shadow-custom w-full mt-1 rounded-md bg-white z-20 ">
+              <LocationsList
+                input={dropoffLocationInput}
+                onClick={dropoffLocationSelect}
+                setSelected={setDLocationSelected}
+                selected={dLocationSelected}
+              />
+            </div>
           </div>
         </>
       )}

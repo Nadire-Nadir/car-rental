@@ -1,12 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { GoPerson } from "react-icons/go";
-import { GiGearStickPattern } from "react-icons/gi";
-import { AiOutlineCalendar } from "react-icons/ai";
+import { GiGearStick } from "react-icons/gi";
 import { IoIosColorPalette } from "react-icons/io";
-import { BsFuelPump, BsCheck2 } from "react-icons/bs";
+import {
+  BsFuelPump,
+  BsCheck2,
+  BsFillPersonFill,
+  BsCalendar2Event,
+} from "react-icons/bs";
 import { GrDashboard } from "react-icons/gr";
 
-const CarDetail = ({ car }) => {
+const CarDetail = ({ car, showPrice }) => {
   const storedSummary = localStorage.getItem("searchSummary");
   const searchSummary = JSON.parse(storedSummary);
   const dateStart = new Date(searchSummary.startDate);
@@ -26,10 +29,7 @@ const CarDetail = ({ car }) => {
   };
 
   return (
-    <div
-      className="rounded-md mt-4 h-52 p-6"
-      style={{ border: "1px solid #e7e7e7" }}
-    >
+    <>
       <div className="flex">
         <div className="flex items-center w-1/4">
           <img
@@ -50,20 +50,15 @@ const CarDetail = ({ car }) => {
           </div>
           <div className="flex flex-col h-24 flex-wrap">
             <div className="flex items-center mb-2">
-              <GoPerson className="w-5 h-5 mr-2" />
+              <BsFillPersonFill className="w-5 h-5 mr-2" />
               {car.seatNumber} seats
             </div>
             <div className="flex items-center mb-2">
-              {car.transmission === "manual" && (
-                <GiGearStickPattern className="w-5 h-5 mr-2" />
-              )}
-              {car.transmission === "automatic" && (
-                <GiGearStickPattern className="w-5 h-5 mr-2" />
-              )}
+              <GiGearStick className="w-5 h-5 mr-2" />
               {car.transmission}
             </div>
             <div className="flex items-center mb-2">
-              <AiOutlineCalendar className="w-5 h-5 mr-2" />
+              <BsCalendar2Event className="w-5 h-5 mr-2" />
               {car.year}
             </div>
             <div className="flex items-center mb-2">
@@ -80,28 +75,32 @@ const CarDetail = ({ car }) => {
             </div>
           </div>
         </div>
-        <div className="w-1/4 flex flex-col justify-end items-end ml-2 space-y-1">
-          <div className="text-sm">Price for {daysDifference} days</div>
-          <div className="font-bold text-[24px]">
-            €{car.PricePerDay * daysDifference}{" "}
-            <span className="text-xs">({car.PricePerDay}€ / day) </span>
+        {showPrice && (
+          <div className="w-1/4 flex flex-col justify-end items-end ml-2 space-y-1">
+            <div className="text-sm">Price for {daysDifference} days</div>
+            <div className="font-bold text-[24px]">
+              €{car.PricePerDay * daysDifference}{" "}
+              <span className="text-xs">({car.PricePerDay}€ / day) </span>
+            </div>
+            <div className="flex items-center text-blue text-sm">
+              <BsCheck2 className="w-5 h-5 to-blue mr-1" />
+              <p>Free cancellation</p>
+            </div>
           </div>
-          <div className="flex items-center text-blue text-sm">
-            <BsCheck2 className="w-5 h-5 to-blue mr-1" />
-            <p>Free cancellation</p>
-          </div>
+        )}
+      </div>
+      {showPrice && (
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => handleClick(car)}
+            className="absolute border-none bg-blue text-white text-base h-10 w-36 right-0 rounded-md cursor-pointer"
+          >
+            View deal
+          </button>
         </div>
-      </div>
-      <div className="relative">
-        <button
-          type="button"
-          onClick={() => handleClick(car)}
-          className="absolute border-none bg-blue text-white text-base h-10 w-36 right-0 rounded-md cursor-pointer"
-        >
-          View deal
-        </button>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

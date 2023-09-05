@@ -17,7 +17,7 @@ module.exports = {
       },
       colors: {
         "locations-hover": "rgba(18,115,196,.06)",
-        "border-color": " #f56700",
+        orange: "#f56700",
         "gray-background": "#F5F5F5",
         "light-background": "#F5F3F4",
         blue: "#1273c4",

@@ -60,7 +60,7 @@ const CarList = () => {
   return (
     <div className="w-screen h-screen">
       <NavBar />
-      <main className="pt-16">
+      <main className="pt-24">
         <div className="max-w-6xl mx-auto mb-8">
           <div className="mt-2">
             <SearchSummary
@@ -93,8 +93,12 @@ const CarList = () => {
                 <div className="mt-5">
                   {carsData.cars.map((car) => {
                     return (
-                      <div key={car.id}>
-                        <CarDetail car={car} />
+                      <div
+                        key={car.id}
+                        className="rounded-md mt-4 h-52 p-6"
+                        style={{ border: "1px solid #e7e7e7" }}
+                      >
+                        <CarDetail car={car} showPrice={true} />
                       </div>
                     );
                   })}
