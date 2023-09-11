@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { GiGearStick } from "react-icons/gi";
 import { IoIosColorPalette } from "react-icons/io";
+import { differenceInDays } from "../utils";
 import {
   BsFuelPump,
   BsCheck2,
@@ -12,12 +13,11 @@ import { GrDashboard } from "react-icons/gr";
 const CarDetail = ({ car, showPrice }) => {
   const storedSummary = localStorage.getItem("searchSummary");
   const searchSummary = JSON.parse(storedSummary);
-  const dateStart = new Date(searchSummary.startDate);
-  const dateEnd = new Date(searchSummary.endDate);
 
-  const timeDifference = dateEnd.getTime() - dateStart.getTime();
-
-  const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+  const daysDifference = differenceInDays(
+    searchSummary.startDate,
+    searchSummary.endDate
+  );
 
   const randomIndex = Math.ceil(Math.random() * 9);
 

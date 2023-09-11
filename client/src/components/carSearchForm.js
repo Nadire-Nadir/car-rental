@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BiSearch } from "react-icons/bi";
 
 import LocationsList from "./locationsList";
-
-import { BiSearch } from "react-icons/bi";
 
 const CarSearchForm = ({ setShowForm, setUpdate, update }) => {
   const today = new Date().toISOString().split("T")[0];

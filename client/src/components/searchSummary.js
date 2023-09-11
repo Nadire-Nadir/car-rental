@@ -2,47 +2,11 @@ import { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import CarSearchForm from "./carSearchForm";
 import { GrClose } from "react-icons/gr";
+import { formatDate } from "../utils";
 
 const SearchSummary = ({ setUpdateSearch, updateSearch }) => {
   const [showForm, setShowForm] = useState(false);
   const searchSummary = JSON.parse(localStorage.getItem("searchSummary"));
-
-  const formatDate = (newDate, time) => {
-    const weekdays = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    const date = new Date(newDate);
-
-    const dayOfWeek = weekdays[date.getDay()];
-    const monthName = months[date.getMonth()];
-
-    const year = date.getFullYear();
-    // const month = date.getMonth() + 1; // Add 1 since months are zero-based
-    const day = date.getDate();
-
-    return `${dayOfWeek}, ${monthName} ${day}, ${year}, ${time}`;
-  };
 
   return (
     <div className="rounded-md border" style={{ border: "2px solid orange" }}>
@@ -70,7 +34,7 @@ const SearchSummary = ({ setUpdateSearch, updateSearch }) => {
             <div className="leading-3">
               <p className="font-bold">{searchSummary.pickupLocation}</p>
               <p className="text-sm">
-                {formatDate(searchSummary.startDate, searchSummary.startTime)}
+                {formatDate(searchSummary.startDate)}, {searchSummary.startTime}
               </p>
             </div>
             <div>
@@ -79,7 +43,7 @@ const SearchSummary = ({ setUpdateSearch, updateSearch }) => {
             <div className="leading-3">
               <p className="font-bold">{searchSummary.dropoffLocation} </p>
               <p className="text-sm">
-                {formatDate(searchSummary.endDate, searchSummary.endTime)}
+                {formatDate(searchSummary.endDate)}, {searchSummary.endTime}
               </p>
             </div>
           </div>
