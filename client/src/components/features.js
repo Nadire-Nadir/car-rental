@@ -5,8 +5,8 @@ import { BsShieldFillCheck } from "react-icons/bs";
 const Features = () => {
   const featureItem = (icon, text1, text2) => {
     return (
-      <div className="flex-1 flex flex-col items-center">
-        <div className="py-3 mb-4">{icon}</div>
+      <div className="flex-1 w-full lg:w-1/4 md:w-1/2 sm:flex-initial flex flex-col items-center py-4">
+        <div className="mb-4">{icon}</div>
         <div className="font-semibold text-[20px]">{text1}</div>
         <div className="text-sm mt-1 leading-7">{text2}</div>
       </div>
@@ -14,7 +14,7 @@ const Features = () => {
   };
   return (
     <div className="bg-light-background">
-      <div className="flex items-center max-w-6xl mx-auto py-16">
+      <div className="flex flex-wrap items-center max-w-6xl mx-auto py-8">
         {featureItem(
           <RiDashboard3Fill color="#f56700" className="w-10 h-10" />,
           "No Milleage Restrictions",

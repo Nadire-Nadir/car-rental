@@ -9,15 +9,14 @@ const Home = () => {
       {/* <div className="absolute inset-0 bg-black opacity-50"></div> */}
       <NavBar />
       <main>
-        <div className="bg-[url(./bg.jpeg)] w-screen h-screen bg-cover bg-center overflow-hidden">
-          <div className="relative max-w-6xl mx-auto top-[25%] flex justify-center">
-            <div className="w-1/2 text-white mt-8">
-              <div className="w-2/3">
+        <div className="bg-[url(./bg.jpeg)] w-screen h-screen bg-cover bg-center">
+          <div className="max-w-6xl mx-auto h-full flex items-center py-10 sm:mt-0 mt-[81px]">
+            <div className="flex flex-col md:flex-row px-8 justify-between lg:space-x-10">
+              <div className="text-white pr-2 lg:w-1/2 md:w-1/3">
                 <h3>Plan your trip now</h3>
                 <h1 className="leading-normal">
-                  Unlock Your Adventure on Our Wheels with
-                  <br />
-                  <span className="text-orange">Smooth </span>Ride,{" "}
+                  Unlock Your Adventure on Our Wheels with <br />
+                  <span className="text-orange">Smooth </span>Ride,
                   <span className="text-orange">Big</span> Save
                 </h1>
                 <p className="leading-8">
@@ -25,9 +24,11 @@ const Home = () => {
                   miles, flexible pick-up options and much more.
                 </p>
               </div>
-            </div>
-            <div className="w-1/2 min-h-1/2 bg-white border rounded-md py-2">
-              <CarSearchForm />
+              <div className="lg:w-1/2 md:w-2/3">
+                <div className="bg-white border rounded-md py-2">
+                  <CarSearchForm />
+                </div>
+              </div>
             </div>
           </div>
         </div>
