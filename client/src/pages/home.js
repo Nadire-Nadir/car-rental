@@ -9,7 +9,7 @@ const Home = () => {
       {/* <div className="absolute inset-0 bg-black opacity-50"></div> */}
       <NavBar />
       <main>
-        <div className="bg-[url(./bg.jpeg)] w-screen h-screen bg-cover bg-center">
+        <div className="bg-[url(./bg.jpeg)] w-screen sm:h-screen bg-cover bg-center">
           <div className="max-w-6xl mx-auto h-full flex items-center py-10 sm:mt-0 mt-[81px]">
             <div className="flex flex-col md:flex-row px-8 justify-between lg:space-x-10">
               <div className="text-white pr-2 lg:w-1/2 md:w-1/3">

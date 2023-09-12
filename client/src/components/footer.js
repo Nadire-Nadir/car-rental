@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="w-screen bg-black">
       <div className="max-w-6xl mx-auto py-10 px-8 text-white flex flex-wrap">
-        <div className="flex-1 w-full lg:w-1/4 md:w-1/2 sm:flex-initial flex justify-center">
+        <div className="w-full lg:w-1/4 md:w-1/2 flex-initial flex justify-center">
           <div className="w-1/2 lg:w-full">
             <div className="font-bold">Car Rental</div>
             <div className="text-gray my-8 pr-8 leading-6">
@@ -14,7 +14,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 w-full lg:w-1/4 md:w-1/2 sm:flex-initial flex justify-center">
+        <div className="w-full lg:w-1/4 md:w-1/2 flex-initial flex justify-center">
           <div className="w-1/2 lg:w-full">
             <div className="font-bold">Company</div>
             <div className="flex flex-col space-y-4 text-gray my-8">
@@ -25,7 +25,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 w-full lg:w-1/4 md:w-1/2 sm:flex-initial flex justify-center">
+        <div className="w-full lg:w-1/4 md:w-1/2 flex-initial flex justify-center">
           <div className="w-1/2 lg:w-full">
             <div className="font-bold">Working Hours</div>
             <div className="flex flex-col space-y-4 text-gray my-8">
@@ -35,7 +35,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 w-full lg:w-1/4 md:w-1/2 sm:flex-initial flex justify-center">
+        <div className="w-full lg:w-1/4 md:w-1/2 flex-initial flex justify-center">
           <div className="w-1/2 lg:w-full">
             <div className="font-bold">Contact</div>
             <div className="flex flex-col space-y-4 text-gray my-8">

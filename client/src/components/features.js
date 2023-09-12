@@ -5,7 +5,7 @@ import { BsShieldFillCheck } from "react-icons/bs";
 const Features = () => {
   const featureItem = (icon, text1, text2) => {
     return (
-      <div className="flex-1 w-full lg:w-1/4 md:w-1/2 sm:flex-initial flex flex-col items-center py-4">
+      <div className="w-full lg:w-1/4 md:w-1/2 flex-initial flex flex-col items-center py-4">
         <div className="mb-4">{icon}</div>
         <div className="font-semibold text-[20px]">{text1}</div>
         <div className="text-sm mt-1 leading-7">{text2}</div>
