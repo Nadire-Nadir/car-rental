@@ -13,7 +13,9 @@ locationsRouter.get("/", async (request, response) => {
       ],
     };
 
-    const locations = await Location.find(filter);
+    const locations = query
+      ? await Location.find(filter)
+      : await Location.find();
 
     response.json(locations);
   } catch (error) {

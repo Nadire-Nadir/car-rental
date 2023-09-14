@@ -56,13 +56,12 @@ const NavBar = () => {
         </div>
         {/* Mobile menu (hidden by default) */}
         {isMobileMenuOpen && (
-          <ul className="list-none h-screen flex flex-col items-center bg-black space-y-8 pt-[20%] text-lg lg:hidden">
+          <ul className="list-none h-screen flex flex-col items-center bg-black space-y-8 pt-[20%] text-lg lg:hidden px-8">
             <li>Home</li>
             <li>About</li>
             <li>Our Services</li>
             <li>Testimonials</li>
             <li>Contact</li>
-            {/* <div className="lg:hidden flex flex-col items-center space-y-4"> */}
             <li>
               <button className="text-base border-none bg-black text-orange cursor-pointer">
                 Sign in
@@ -73,7 +72,6 @@ const NavBar = () => {
                 Register
               </button>
             </li>
-            {/* </div> */}
           </ul>
         )}
       </div>

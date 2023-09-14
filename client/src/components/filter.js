@@ -30,8 +30,8 @@ const Filter = ({
     "Petrol",
     "Diesel",
     "Hybrid(all)",
-    "Hybrid(petrol/electric)",
-    "Hybrid(diesel/electric)",
+    "Hybrid(pet/elec)",
+    "Hybrid(dl/elec)",
     "Electric",
   ];
 
@@ -81,10 +81,7 @@ const Filter = ({
   };
 
   return (
-    <div
-      className="mt-5 rounded-md px-4"
-      style={{ border: "1px solid #e7e7e7" }}
-    >
+    <div className="px-4">
       <div className="flex justify-between items-center">
         <h3>Filter</h3>
         <button

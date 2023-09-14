@@ -37,7 +37,7 @@ const LocationsList = ({ input, onClick, setSelected, selected }) => {
   return (
     <ul className="list-none pl-0 my-0">
       {locading ? (
-        <AiOutlineLoading3Quarters className="h-5 w-5 ml-4 my-4" />
+        <AiOutlineLoading3Quarters className="h-5 w-5 ml-4 my-4 animate-spin" />
       ) : (
         locations.map((location) => {
           return (
