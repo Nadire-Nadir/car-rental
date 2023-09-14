@@ -19,7 +19,7 @@ const CarDetail = ({ car, showPrice }) => {
     searchSummary.endDate
   );
 
-  const randomIndex = Math.ceil(Math.random() * 9);
+  const randomIndex = Math.ceil(Math.random() * 8);
 
   const navigate = useNavigate();
 
